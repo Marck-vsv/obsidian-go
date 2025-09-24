@@ -53,7 +53,7 @@ func main() {
 
 ## 🔗 Related Topics
 
-- [[Types]]
+- [[Data Types]]
 - [[Zero Values]]
 - [[Variable Shadowing]]
 - [[Iota]]

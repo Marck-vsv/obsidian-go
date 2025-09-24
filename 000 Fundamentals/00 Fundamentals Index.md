@@ -5,7 +5,7 @@
 - [[Zero Values]]
 - [[Variable Shadowing]]
 - [[Iota]]
-- [[Types]]
+- [[Data Types]]
 - [[Golang/Fundamentals/Program Structure]]
 - [[Golang/Fundamentals/Functions and Returns]]
 - [[Golang/Fundamentals/Structs and Methods]]

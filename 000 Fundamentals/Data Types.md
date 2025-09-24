@@ -5,7 +5,6 @@ Data types in go specify the kinds of values that particular variables will stor
 ---
 
 ## 🔍 Concepts and Details
-
 ### 1. Integers
 
 Integers are fundamental numeric types that can be signed (`int`) or unsigned (`uint`). The distinction is crucial because it determines whether negative values are allowed and how much memory the type consumes. Go provides both **architecture-dependent** integer types (`int`, `uint`) and **explicitly sized** integer types (`int8`, `int16`, `int32`, `int64`, and their unsigned counterparts).
@@ -80,6 +79,7 @@ var b uint = uint(a) // explicit conversion
 ```
 
 ___
+
 ### 2. Floating Points
 
 Floating-point numbers in Go represent real numbers (with fractions/decimals). They are used when integer types are not sufficient for precise or fractional values. Go provides two sizes of floating-point numbers: `float32` and `float64`.
@@ -117,7 +117,7 @@ func main() {
     var a float64 = 0.1
     var b float64 = 0.2
     var c float64 = 0.3
-
+	
     fmt.Println(a + b == c) // false due to floating-point precision
 }
 ```
@@ -166,16 +166,119 @@ func main() {
 ---
 
 
+### 3. Complex
+
+Go has built-in support for **complex numbers**, which are numbers that have both real and an imaginary part. These are particularly useful in fields like signal processing, scientific computing, and electrical engineering.
+
+Go provides two complex types:
+- **`complex64`**: real and imaginary parts are `float32`.
+- **`complex128`**: real and imaginary parts are `float64` (default when using literals).
+
+#### 3.1 Declaring Complex Numbers
+
+You can create a complex number using the built-in `complex` function or by directly writing with `i` as the imaginary unit.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	// Using complex (real, imag)
+	c1 := complex(3, 4) // 3 + 4i
+	fmt.Println("c1:", c1)
+	
+	// Direct declaration
+	c2 := 5 + 6i
+	fmt.Println("c2:", c2)
+}
+```
+
+#### 3.2 Operations with Complex Numbers
+
+Complex numbers support the usual arithmetic operators: `+`, `=`, `*`, `/`.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    c1 := 2 + 3i
+    c2 := 1 + 4i
+	
+    fmt.Println("Sum:", c1+c2)
+    fmt.Println("Difference:", c1-c2)
+    fmt.Println("Product:", c1*c2)
+    fmt.Println("Quotient:", c1/c2)
+}
+```
+
+#### 3.3 Extracting Real and Imaginary Parts
+
+Go provides the built-in functions `real()` and `imag()` to extract components of a complex number:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    c := 7 + 2i
+    fmt.Println("Real part:", real(c))
+    fmt.Println("Imag part:", imag(c))
+}
+```
+
+#### 3.4 Magnitude and Phase (with `math/cmplx`)
+
+The `math/cmplx` package provides advanced operations for complex numbers:
+* `cmplx.Abs(z)` $\rightarrow$  magnitude (distance from origin)
+* `cmplx.Phase(z)` $\rightarrow$  phase (angle in radians)
+* `cmplx.Conj(z)` $\rightarrow$  complex conjugate
+
+```go
+package main
+
+import (
+    "fmt"
+    "math/cmplx"
+)
+
+func main() {
+    c := 3 + 4i
+    fmt.Println("Magnitude:", cmplx.Abs(c))   // 5
+    fmt.Println("Phase:", cmplx.Phase(c))     // angle in radians
+    fmt.Println("Conjugate:", cmplx.Conj(c))  // 3 - 4i
+}
+```
+
+### 4. Boolean
+
+The `bool` type in Go represent truth values: `true` or `false`. They are used in conditional logic, comparisons, and control strutctures.
+
+#### 4.1 Declaring Booleans
+
+A boolean can be declared directly with `true` or `false`, or it can be the result of a comparison expression.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var b1 bool = true
+    var b2 = false
+    b3 := (10 > 5)
+	
+    fmt.Println("b1:", b1)
+    fmt.Println("b2:", b2)
+    fmt.Println("b3:", b3) // result of comparison
+}
+```
 
 
-
-
-
-
-
-
-
-
+---
 
 ## 📝 Extended Examples
 

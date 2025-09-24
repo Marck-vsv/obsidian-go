@@ -7,7 +7,7 @@
 
 ---
 
-###### Go main aspects
+### Go main aspects
 
 1. Binary executable
 	* It doesn't need a runtime interpreter, so a binary can be far slimmer than a nest of directories and sub-directories, which is good for containerisation and orchestration performance.

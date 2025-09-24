@@ -34,7 +34,7 @@ func main() {
 ## 🔗 Related Topics
 
 - [[Variables and Constants]]
-- [[Types]]
+- [[Data Types]]
 
 ---
 
