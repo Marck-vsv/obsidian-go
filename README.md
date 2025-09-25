@@ -1,4 +1,4 @@
-# Obsidian Go - Um Vault de Conhecimento sobre a Linguagem Go
+# Obsidian Go
 
 Este repositório é um [Obsidian](https://obsidian.md/) Vault pessoal, projetado para servir como uma base de conhecimento abrangente para a linguagem de programação Go (Golang). Inspirado por um "segundo cérebro", ele organiza notas, exemplos de código e conceitos de forma estruturada para facilitar o aprendizado, a consulta e a revisão.
 
