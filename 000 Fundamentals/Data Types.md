@@ -11,8 +11,8 @@ Integers are fundamental numeric types that can be signed (`int`) or unsigned (`
 
 #### 1.1 Signed vs Unsigned
 
-- **Signed (`int`)**: can represent both negative and positive numbers.
-- **Unsigned (`uint`)**: can only represent non-negative numbers (0 and above).
+- **Signed (`int`)**: can represent both negative and positive numbers
+- **Unsigned (`uint`)**: can only represent non-negative numbers (0 and above)
 
 ```go
 package main
@@ -34,8 +34,8 @@ Signed integers are generally the default choice because most applications requi
 
 The size of `int` and `uint` depends on the target architecture:
 
-- On a **32-bit system**: `int` and `uint` are 32 bits (4 bytes).
-- On a **64-bit system**: `int` and `uint` are 64 bits (8 bytes).
+- On a **32-bit system**: `int` and `uint` are 32 bits (4 bytes)
+- On a **64-bit system**: `int` and `uint` are 64 bits (8 bytes)
 
 This makes them _machine-dependent types_, unlike explicitly sized integers.
 
@@ -53,7 +53,6 @@ Go defines fixed-size integer types for greater control:
 | uint32 | 32          | 0 to 4,294,967,295                 |
 | int64  | 64          | -9,223,372,036,854,775,808 to 9e18 |
 | uint64 | 64          | 0 to 18,446,744,073,709,551,615    |
-
 
 ```go
 package main
@@ -87,8 +86,8 @@ By default, when you write a floating-point literal (e.g., `3.14`), Go treats it
 
 #### 2.1 Types of Floating Points
 
-- **`float32`**: 32-bit floating point, about 6-7 decimal digits of precision.
-- **`float64`**: 64-bit floating point, about 15-16 decimal digits of precision (default and recommended in most cases). 
+- **`float32`**: 32-bit floating point, about 6-7 decimal digits of precision
+- **`float64`**: 64-bit floating point, about 15-16 decimal digits of precision (default and recommended in most cases)
 
 ```go
 package main
@@ -127,8 +126,8 @@ func main() {
 #### 2.3 Special Values
 
 Floating-point numbers follow the **IEEE 754 standard**, so they can represent special values:
-* `+Inf` and `-Inf`: positive and negative infinity.
-* `NaN`: "Not a Number", e.g., result of invalid operations like `0.0/0.0`.
+* `+Inf` and `-Inf`: positive and negative infinity
+* `NaN`: "Not a Number", e.g., result of invalid operations like `0.0/0.0`
 
 ```go
 package main
@@ -165,14 +164,13 @@ func main() {
 
 ---
 
-
 ### 3. Complex
 
 Go has built-in support for **complex numbers**, which are numbers that have both real and an imaginary part. These are particularly useful in fields like signal processing, scientific computing, and electrical engineering.
 
 Go provides two complex types:
-- **`complex64`**: real and imaginary parts are `float32`.
-- **`complex128`**: real and imaginary parts are `float64` (default when using literals).
+- **`complex64`**: real and imaginary parts are `float32`
+- **`complex128`**: real and imaginary parts are `float64` (default when using literals)
 
 #### 3.1 Declaring Complex Numbers
 
@@ -277,22 +275,237 @@ func main() {
 }
 ```
 
+#### 4.2 Comparison Operators
+
+Comparison operators always return a boolean value:
+* `==` (equal)
+* `!=` (not equal)
+* `<`, `<=`, `>`, `>=`
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println(5 == 5)   // true
+    fmt.Println(5 != 3)   // true
+    fmt.Println(7 < 2)    // false
+    fmt.Println(10 >= 10) // true
+}
+```
+
+#### 4.3 Logical Operators
+
+Go provides three main logical operators for booleans:
+* `&&` $\rightarrow$  logical AND
+* `||` $\rightarrow$  logical OR
+* `!` $\rightarrow$  logical NOT
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    a := true
+    b := false
+	
+    fmt.Println("a && b:", a && b) // false
+    fmt.Println("a || b:", a || b) // true
+    fmt.Println("!a:", !a)         // false
+}
+```
+
+#### 4.4 Usage in Control Structures
+
+Booleans are essential in control flow statements like `if`, `for`, and `switch`.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    isLoggedIn := true
+	
+    if isLoggedIn {
+        fmt.Println("Welcome back!")
+    } else {
+        fmt.Println("Please log in.")
+    }
+}
+```
 
 ---
 
-## 📝 Extended Examples
+### 5. Runes
 
-Show longer, practical code snippets with explanations.
+In Go, a **rune** represents a single Unicode code point It is essentially an alias for the type `int32`. Runes are useful when you need to work with individual characters in strings, especially when dealing with non-ASCII text. Unlike some languages where a "char" is just a byte, Go’s `rune` type ensures proper handling of Unicode characters, which may take more than one byte.  
+
+#### 5.1 Declaring Runes
+
+You can declare runes using single quotes (`''`), which represent Unicode characters 
 
 ```go
+package main
 
+import "fmt"
+
+func main() {
+    var r rune = 'A'
+    fmt.Printf("Rune: %c | Code point: %U\n", r, r)
+	
+    smile := '😊'
+    fmt.Printf("Rune: %c | Code point: %U\n", smile, smile)
+}
+```
+
+#### 5.2 Difference between `byte` and `rune`
+
+* `byte`(`uint8`) $\rightarrow$ represents a raw ASCII character (1 byte)
+* `rune`(`int32`) $\rightarrow$ represents a Unicode code point (may take up to 4 bytes in UTF-8).
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    b := byte('A')   // ASCII
+    r := rune('😊')  // Unicode
+	
+    fmt.Println("byte:", b) // 65
+    fmt.Println("rune:", r) // 128522
+}
+```
+
+#### 5.3 Iterating over strings
+
+When you iterate over a string with `for ... range`, Go decodes runes automatically (not raw bytes)
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    s := "Olá, Go!"
+	
+    for i, r := range s {
+        fmt.Printf("Index: %d | Rune: %c | Code point: %U\n", i, r, r)
+    }
+}
+```
+
+#### 5.4 Working with the `unicode` Package
+
+The `unicode` package provides helpers to classify and manipulate runes.
+
+```go
+package main
+
+import (
+    "fmt"
+    "unicode"
+)
+
+func main() {
+    r := 'A'
+    fmt.Println("IsLetter:", unicode.IsLetter(r)) // true
+    fmt.Println("IsDigit:", unicode.IsDigit(r))   // false
+}
+```
+
+### 6. Strings
+
+Strings in Go are immutable sequences of `bytes`, typically representing text encoded in UTF-8.  
+They are a fundamental type used to store and manipulate textual data. 
+
+#### 6.1 Declaring strings
+
+Strings can be created using either **interpreted string literals** or **raw string literals**.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    s1 := "Hello, Go!"
+    s2 := `Raw string example`
+	
+    fmt.Println(s1)
+    fmt.Println(s2)
+}
+```
+
+#### 6.2 Interpreted string literals
+
+Interpreted strings are enclosed in **double quotes `"..."`**.  
+They support **escape sequences**:
+- `\n` → newline
+- `\t` → tab
+- `\"` → double quote inside string
+- `\\` → backslash
+- `\u` / `\U` → Unicode escapes
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    s := "Hello\nWorld\t\"Go\""
+    fmt.Println(s)
+}
+```
+
+#### 6.3 Raw string literals
+
+Raw strings are enclosed in **backticks `` `...` ``**.  
+They do **not** process escape sequences, so the content is preserved exactly as written. They are often used for **multiline text**, **regular expressions**, or when readability matters.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    raw := `Line 1
+Line 2\t(with tab preserved)
+Quotes: "Go"`
+    fmt.Println(raw)
+}
+```
+
+#### 6.4 Common operations
+
+Strings can be concatenated with `+`, and their length can be checked with `len()`.  
+Since they are UTF-8 encoded, indexing returns **bytes**, not runes.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    s1 := "Go"
+    s2 := "Lang"
+    concat := s1 + " " + s2
+	
+    fmt.Println("Concatenated:", concat)
+    fmt.Println("Length:", len(concat))   // number of bytes
+    fmt.Println("First byte:", concat[0]) // returns byte (71 -> 'G')
+}
 ```
 
 ---
 
 ## 🔗 Related Topics
 
-- 
+- [[Type Conversion]]
+- [[Variables and Constants]]
 
 ---
 
