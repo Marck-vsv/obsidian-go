@@ -63,7 +63,7 @@ func main() {
 ## 🔗 Related Topics
 
 - [[Data Types]]
-- [[Golang/Fundamentals/Type Assertion]]
+- [[Type Assertion]]
 
 ---
 
